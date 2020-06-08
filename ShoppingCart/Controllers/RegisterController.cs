@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ShoppingCart.Controllers
 {
@@ -15,6 +16,7 @@ namespace ShoppingCart.Controllers
         {
             return View();
         }
+
         public ActionResult Login()
         {
             return View();
@@ -29,13 +31,15 @@ namespace ShoppingCart.Controllers
             if (v != null)
             {
                 Session["log"] = v.UserName.ToString();
-
+                FormsAuthentication.SetAuthCookie(u.UserName,false);
                 return RedirectToAction("Index","Products");
             }
 
-
-            return View(u);
+            ModelState.AddModelError("", "Invalid UserName or Password");
+            return View();
         }
+
+
         public ActionResult AfterLogin()
         {
             if (Session["log"] != null)
@@ -44,7 +48,7 @@ namespace ShoppingCart.Controllers
             }
             else
             {
-                return RedirectToAction("login");
+                return RedirectToAction("Login");
             }
         }
 
@@ -62,6 +66,12 @@ namespace ShoppingCart.Controllers
                 db.UserTable.Add(user);
                 db.SaveChanges();
             }
+            return RedirectToAction("Login");
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
 

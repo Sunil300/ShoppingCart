@@ -7,7 +7,7 @@ using System.Web.Security;
 
 namespace ShoppingCart
 {
-    public class WebRole : RoleProvider
+    public class WebRoleProvider : RoleProvider
     {
         public override string ApplicationName { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
 

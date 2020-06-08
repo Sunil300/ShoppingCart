@@ -23,6 +23,7 @@ namespace ShoppingCart.Controllers
         }
 
         // GET: Products/Details/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -39,7 +40,7 @@ namespace ShoppingCart.Controllers
 
         // GET: Products/Create
 
-        [Authorize(Roles = "Admin")]
+       [Authorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
@@ -64,6 +65,7 @@ namespace ShoppingCart.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -83,6 +85,7 @@ namespace ShoppingCart.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit([Bind(Include = "ProductId,ProductName,OrderId,Quantity")] Product product)
         {
             if (ModelState.IsValid)
@@ -95,6 +98,7 @@ namespace ShoppingCart.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -110,6 +114,7 @@ namespace ShoppingCart.Controllers
         }
 
         // POST: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
