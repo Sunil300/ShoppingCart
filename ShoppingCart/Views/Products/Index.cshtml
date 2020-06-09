@@ -4,11 +4,28 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
 
-@*<p>
-    @Html.ActionLink("Create New", "Create")
-</p>*@
+
+@if (User.Identity.IsAuthenticated)
+{
+
+    if (User.IsInRole("Admin"))
+    {
+        <h1 class="alert alert-success">Welcome Admin - @Session["log"]</h1>
+    }
+    else if (User.IsInRole("Seller"))
+    {
+        <h1 class="alert alert-success">Welcome Seller - @Session["log"]</h1>
+    }
+    else if (User.IsInRole("User"))
+    {
+        <h1 class="alert alert-success">Welcome User - @Session["log"]</h1>
+    }
+    else
+    {
+        <h1 class="alert alert-success">Welcome - @Session["log"]</h1>
+    }
+}
 <table class="table">
     <tr>
         <th>
@@ -23,36 +40,40 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.OrderId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-       
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.OrderId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+
             @if (User.Identity.IsAuthenticated)
             {
 
-                if (User.IsInRole("Admin") )
+                if (User.IsInRole("Admin"))
                 {
-                  <td>  @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })</td>
-                }else if (User.IsInRole("Seller"))
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.ProductId }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.ProductId }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.ProductId })
+                    </td>
+                }
+                else if (User.IsInRole("Seller"))
                 {
-                  <td>
-                      @Html.ActionLink("Details", "Details", new { id = item.ProductId }) 
-                  </td>
+                    <td>
+                        @Html.ActionLink("Details", "Details", new { id = item.ProductId })
+                    </td>
                 }
             }
-            
-        
-    </tr>
-}
+
+
+        </tr>
+    }
 
 </table>

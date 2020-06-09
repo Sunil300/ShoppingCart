@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - My Shopping Cart</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 </head>
@@ -23,10 +23,22 @@
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                     <li>@Html.ActionLink("About", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                            <li>@Html.ActionLink("Roles", "Index", "Roles")</li>
+                            <li>@Html.ActionLink("Users", "Index", "Users")</li>
+                        }
+                        else if (User.IsInRole("Seller"))
+                        {
+                            <li>@Html.ActionLink("Products", "Index", "Products")</li>
+                        }
+                    }
                 </ul>
                     <ul class="nav navbar-nav navbar-right">
-                        @*<li>@Html.ActionLink("Login", "Login", "Register")</li>
-                        <li>@Html.ActionLink("Register", "Register", "Register")</li>*@
                         @Html.Partial("_LoginPartial");
                     </ul>
                 
