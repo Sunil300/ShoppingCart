@@ -1,11 +1,12 @@
 ﻿@if (User.Identity.IsAuthenticated)
 {
     <li><a>Hi, @User.Identity.Name</a></li>
-    <li>@Html.ActionLink("Logout", "Logout", "Register")</li>
-    if (User.IsInRole("Admin"))
+    if (User.IsInRole("Admin") || User.IsInRole("Seller"))
     {
         <li>@Html.ActionLink("Create New", "Create", "Products")</li>
     }
+
+    <li>@Html.ActionLink("Logout", "Logout", "Register")</li>
 }
 else
 {

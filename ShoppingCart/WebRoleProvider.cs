@@ -41,7 +41,7 @@ namespace ShoppingCart
             using (ShoppingContext db = new ShoppingContext())
             {
                 var result = (from user in db.UserTable
-                              join role in db.RoleTable on user.UserId equals role.RoleId
+                              join role in db.RoleTable on user.UserId equals role.UserId
                               where user.UserName == username
                               select role.RoleName).ToArray();
                 return result;

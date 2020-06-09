@@ -9,8 +9,7 @@ namespace ShoppingCart.Controllers
 {
     public class HomeController : Controller
     {
-        ShoppingContext db = new ShoppingContext();
-        [AllowAnonymous]
+        
         public ActionResult Index()
         {
             return View();
@@ -20,6 +19,7 @@ namespace ShoppingCart.Controllers
         {
 
             ViewBag.Message = "Your application description page.";
+           
 
             return View();
         }
